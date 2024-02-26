@@ -2,7 +2,7 @@
 
 ### Instalação: 
 
-* Você precisará do PHP instalado em seu computador, [BAIXE AQUI](https://www.php.net/downloads). 
+* Você precisará do PHP 8.2 instalado em seu computador, [BAIXE AQUI](https://www.php.net/downloads). 
 * Na raiz do projeto use o comando `composer install`. 
 * No arquivo `.ENV` edite o campo `DB_CONNECTION` e coloque os dados do seu banco de dados.
 * No arquivo `.ENV` edite o campo `MAIL_MAILER` e coloque os dados do seu servidor de email.
