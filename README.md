@@ -59,3 +59,6 @@ POST | Lista de tasks | `localhost:8000/api/transfers`
 ```
 php artisan test
 ```
+#### Observações Finais:
+* Embora possuo conhecimento em Docker, encontrei dificuldades na criação das imagens necessárias para executar o projeto.
+* Se este teste não atender aos critérios para a vaga de nível Pleno, gostaria de ser considerado para avaliação em uma posição de nível Júnior, caso surja uma oportunidade adequada.
