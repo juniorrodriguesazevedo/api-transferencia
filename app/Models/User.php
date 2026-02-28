@@ -3,17 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf_cnpj',
-        'role_id'
+        'is_active'
     ];
 
     /**
@@ -38,6 +38,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [];
+
     /**
      * The attributes that should be cast.
      *
@@ -48,22 +50,24 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => Str::of($value)->trim()->ucfirst()
+        );
+    }
+
     protected function cpfCnpj(): Attribute
     {
         return Attribute::make(
-            set: fn (string | null $value) => $value ? preg_replace('/[^0-9]/', '', $value) : null,
+            get: fn(?string $value) => $value ? formatCpfCnpj($value) : null,
         );
     }
 
-    protected function password(): Attribute
+    protected function typeRole(): Attribute
     {
         return Attribute::make(
-            set: fn (string | null $value) => $value ? Hash::make($value) : null,
+            get: fn() => $this->getPermissionsViaRoles()
         );
-    }
-
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
     }
 }

@@ -22,7 +22,7 @@
 
         .icon {
             font-size: 48px;
-            color: #28a745; /* Cor verde para indicar sucesso */
+            color: #28a745;
         }
 
         .message {

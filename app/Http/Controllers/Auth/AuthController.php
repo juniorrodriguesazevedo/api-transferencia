@@ -14,14 +14,18 @@ class AuthController extends Controller
     public function login(AuthStoreRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $user = User::firstWhere('email', $data['email']);
+        $user = User::where('email', $data['email'])->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Dados incorretos'], 401);
+            return response()->json(['message' => 'Credenciais inválidas.'], 401);
+        }
+
+        if (!$user->is_active) {
+            return response()->json(['message' => 'Usuário desativado.'], 403);
         }
 
         $user->tokens()->delete();
-        $token = $user->createToken("$user->name - $user->email")->plainTextToken;
+        $token = $user->createToken("{$user->name}-token")->plainTextToken;
 
         $response = [
             'user' => $user,

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -14,27 +13,25 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            [
-                'name' => 'Cliente Comum',
-                'email' => 'client@email.com',
-                'password' => '12345678',
-                'cpf_cnpj' => '439.029.660-41',
-                'balance' => 500.00,
-                'role_id' => RoleEnum::CLIENT
-            ],
-            [
-                'name' => 'Lojista',
-                'email' => 'shopkeeper@email.com',
-                'password' => '12345678',
-                'cpf_cnpj' => '52.752.899/0001-00',
-                'balance' => 100.00,
-                'role_id' => RoleEnum::SHOPKEEPER
-            ],
-        ];
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@email.com',
+            'password' => '12345678',
+        ])->assignRole(RoleEnum::SUPER_ADMIN);
 
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        User::create([
+            'name' => 'Cliente',
+            'email' => 'customer@email.com',
+            'password' => '12345678',
+            'cpf_cnpj' => '584.979.080-23',
+
+        ])->assignRole(RoleEnum::CUSTOMER);
+
+        User::create([
+            'name' => 'Lojista',
+            'email' => 'shopkeeper@email.com',
+            'password' => '12345678',
+            'cpf_cnpj' => '90.079.261/0001-31',
+        ])->assignRole(RoleEnum::SHOPKEEPER);
     }
 }
