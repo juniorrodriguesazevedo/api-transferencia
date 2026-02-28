@@ -8,6 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -38,7 +39,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $appends = [];
+    protected $appends = [
+        'balance'
+    ];
 
     /**
      * The attributes that should be cast.
@@ -64,10 +67,15 @@ class User extends Authenticatable
         );
     }
 
-    protected function typeRole(): Attribute
+    protected function balance(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->getPermissionsViaRoles()
+            get: fn() => formatPrice($this->wallet?->balance ?? 0)
         );
+    }
+
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class);
     }
 }

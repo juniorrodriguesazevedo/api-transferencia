@@ -1,13 +1,6 @@
 <?php
 
 
-function getRole($value): string
-{
-    $role =  str_replace(['[', '"', ']'], '', $value->pluck('description'));
-
-    return empty($role) ? 'Sem função' : $role;
-}
-
 function formatCPF($cpf): string
 {
     return preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $cpf);
@@ -70,4 +63,9 @@ function formatDate($date): string
 function formatHour($hour): string
 {
     return substr($hour, 0, 5);
+}
+
+function formatPrice(float|int $value): string
+{
+    return 'R$ ' . number_format($value, 2, ',', '.');
 }
