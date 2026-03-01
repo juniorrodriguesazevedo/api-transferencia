@@ -4,6 +4,7 @@ namespace Tests\Feature\Transfer;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Enums\RoleEnum;
 use App\Services\ExternalService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,8 +19,8 @@ class TransferTest extends TestCase
                 ->andReturn(true);
         });
 
-        $customer = User::role('customer')->first();
-        $shopkeeper = User::role('shopkeeper')->first();
+        $customer = User::role(RoleEnum::CUSTOMER)->first();
+        $shopkeeper = User::role(RoleEnum::SHOPKEEPER)->first();
 
         $response = $this->actingAs($customer, 'sanctum')
             ->postJson('/api/transfers', [
@@ -38,8 +39,8 @@ class TransferTest extends TestCase
                 ->andReturn(true);
         });
 
-        $customer = User::role('customer')->first();
-        $shopkeeper = User::role('shopkeeper')->first();
+        $customer = User::role(RoleEnum::CUSTOMER)->first();
+        $shopkeeper = User::role(RoleEnum::SHOPKEEPER)->first();
 
         $response = $this->actingAs($shopkeeper, 'sanctum')
             ->postJson('/api/transfers', [
