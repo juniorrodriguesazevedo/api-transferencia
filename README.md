@@ -155,4 +155,9 @@ POST | Lista de tasks | `/api/transfers`
   "value": 1.28
 }
 ```
+### Lista Rotas Transações:
 
+Method | Descrição | Rota | Quem pode acessar
+:--------- | :------ | :------ | :------
+GET | Listar | `/api/transactions` | Próprio usuário
+GET | Visualizar | `/api/transactions/{id}` | Próprio usuário
