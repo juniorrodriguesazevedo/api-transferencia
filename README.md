@@ -102,7 +102,6 @@ http://localhost:8000
 
 ---
 
----
 
 ## Supervisor (Processamento de Filas)
 
