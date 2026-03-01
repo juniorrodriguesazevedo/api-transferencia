@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Exception;
 use App\Models\User;
+use App\Jobs\NotifyUserJob;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Enums\TransactionStatusEnum;
 
 class TransferService
@@ -23,7 +23,7 @@ class TransferService
 
         try {
             $transaction = $this->processTransaction($payer, $payee, $value);
-            $this->notifyUser($transaction);
+            NotifyUserJob::dispatch($transaction, $this->externalService);
 
             return $transaction;
         } catch (\Throwable $th) {
@@ -59,14 +59,5 @@ class TransferService
 
             return $transaction;
         });
-    }
-
-    private function notifyUser(Transaction $transaction): void
-    {
-        if (!$this->externalService->notifyUser()) {
-            Log::channel('notify_user')->warning(
-                "Notificação da transferência falhou para Transação ID {$transaction->id}"
-            );
-        }
     }
 }

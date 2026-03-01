@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev \
     libpng-dev \
+    supervisor \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
@@ -16,4 +17,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-CMD ["php-fpm"]
+COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+CMD ["/usr/bin/supervisord", "-n"]

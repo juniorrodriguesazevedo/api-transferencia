@@ -7,6 +7,8 @@
 
 * [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum)
 
+* [Supervisor](https://laravel.com/docs/10.x/queues#supervisor-configuration)
+
 ## Instalação: 
 
 ### 1. Suba os containers
@@ -58,6 +60,8 @@ DB_PORT=3306
 DB_DATABASE=wallet
 DB_USERNAME=wallet
 DB_PASSWORD=wallet
+
+QUEUE_CONNECTION=database
 ```
 
 ---
@@ -82,6 +86,7 @@ chmod -R 775 storage bootstrap/cache
 ### 6. Rode as migrations e seeders
 
 ```bash
+php artisan queue:table
 php artisan migrate:fresh --seed
 ```
 
@@ -96,6 +101,28 @@ http://localhost:8000
 ```
 
 ---
+
+---
+
+## Supervisor (Processamento de Filas)
+
+O container já possui Supervisor configurado para executar:
+
+- php-fpm
+- php artisan queue:work
+
+Verificar status:
+
+```bash
+supervisorctl status
+```
+
+Saída esperada:
+
+```
+php-fpm           RUNNING
+laravel-worker    RUNNING
+```
 
 
 #### Observações:
