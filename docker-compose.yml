@@ -8,7 +8,6 @@ services:
       - ./:/var/www
     depends_on:
       - mysql
-      - redis
     networks:
       - wallet-network
 
@@ -37,12 +36,6 @@ services:
     - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - wallet-network
-
-  redis:
-    image: redis:alpine
-    container_name: wallet_redis
     networks:
       - wallet-network
 

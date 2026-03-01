@@ -10,10 +10,14 @@ class TransferPolicy
 {
     use HandlesAuthorization;
 
-    public function makeTransfer(User $user): bool
+    public function makeTransfer(User $authUser, User $payer): bool
     {
-        if ($user->hasRole(RoleEnum::SHOPKEEPER)) {
-            $this->deny('Lojistas não podem enviar transferências.');
+        if ($authUser->id !== $payer->id) {
+            return false;
+        }
+
+        if ($authUser->hasRole(RoleEnum::SHOPKEEPER)) {
+            return false;
         }
 
         return true;

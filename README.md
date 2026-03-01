@@ -60,19 +60,6 @@ DB_USERNAME=wallet
 DB_PASSWORD=wallet
 ```
 
-Configure o servidor de e-mail:
-
-```env
-MAIL_MAILER=smtp
-MAIL_HOST=seu_servidor_smtp
-MAIL_PORT=587
-MAIL_USERNAME=seu_usuario
-MAIL_PASSWORD=sua_senha
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=seu_email@dominio.com
-MAIL_FROM_NAME="${APP_NAME}"
-```
-
 ---
 
 ### 4. Gere a  chave da aplicação
@@ -163,17 +150,9 @@ POST | Lista de tasks | `/api/transfers`
 ### Body Transferência:
 ```
 {
-    "value" : 12.65,
-    "payee" : 2
+  "payer": 2,
+  "payee": 3,
+  "value": 1.28
 }
 ```
-#### Observações:
-* Na hora da transferência ele já pega o saldo do usuário logado
 
-### Comando rodar os testes:
-```
-php artisan test
-```
-#### Observações Finais:
-* Embora possuo conhecimento em Docker, encontrei dificuldades na criação das imagens necessárias para executar o projeto.
-* Se este teste não atender aos critérios para a vaga de nível Pleno, gostaria de ser considerado para avaliação em uma posição de nível Júnior, caso surja uma oportunidade adequada.

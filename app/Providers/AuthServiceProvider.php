@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 
 use App\Models\User;
-use App\Models\Transaction;
-use App\Policies\UserPolicy;
 use App\Policies\TransferPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -19,14 +17,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
-        Transaction::class => TransferPolicy::class
+        User::class => TransferPolicy::class,
     ];
 
     /**
      * Register any authentication / authorization services.
      */
-    public function boot(): void
-    {
-        //
-    }
+    public function boot(): void {}
 }

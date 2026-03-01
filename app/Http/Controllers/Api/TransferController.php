@@ -20,11 +20,11 @@ class TransferController extends Controller
             $payee = User::find($data['payee']);
 
             $this->authorize('makeTransfer', $payer);
-            $transaction = $this->transferService->transfer($data['value'], $payer, $payee);
+            $this->transferService->transfer($data['value'], $payer, $payee);
 
-            return response()->json($transaction, 201);
+            return response()->json(['messagem' => 'Transferência realizada com sucesso!'], 201);
         } catch (\Throwable $th) {
-            return response()->json(['message' => $th->getMessage()], $th->getCode());
+            return response()->json(['message' => $th->getMessage()], 403);
         }
     }
 }

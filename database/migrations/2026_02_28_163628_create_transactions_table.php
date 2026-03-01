@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payer_id')->constrained('users');
-            $table->foreignId('payee_id')->constrained('users'); 
+            $table->foreignId('payee_id')->constrained('users');
             $table->decimal('value', 15, 2);
+            $table->ipAddress('ip')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });
