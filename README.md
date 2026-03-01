@@ -187,3 +187,9 @@ Method | Descrição | Rota | Quem pode acessar
 :--------- | :------ | :------ | :------
 GET | Listar | `/api/transactions` | Próprio usuário
 GET | Visualizar | `/api/transactions/{id}` | Próprio usuário
+
+###  Execultar Testes
+
+```
+php artisan test
+```
