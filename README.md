@@ -103,7 +103,7 @@ http://localhost:8000
 ---
 
 
-## Supervisor (Processamento de Filas)
+## Supervisor
 
 O container já possui Supervisor configurado para executar:
 
