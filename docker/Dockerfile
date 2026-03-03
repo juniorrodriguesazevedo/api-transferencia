@@ -10,13 +10,13 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     supervisor \
     && docker-php-ext-install \
-        pdo \
-        pdo_mysql \
-        bcmath \
-        zip
+    pdo \
+    pdo_mysql \
+    bcmath \
+    zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+COPY docker/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 CMD ["/usr/bin/supervisord", "-n"]

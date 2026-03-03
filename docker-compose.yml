@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     container_name: wallet_app
     volumes:
       - ./:/var/www
@@ -18,7 +18,7 @@ services:
       - "8000:80"
     volumes:
       - ./:/var/www
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
     networks:
@@ -33,7 +33,7 @@ services:
       MYSQL_USER: wallet
       MYSQL_PASSWORD: wallet
     ports:
-    - "3310:3306"
+      - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
