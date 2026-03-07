@@ -21,9 +21,7 @@ class Transaction extends Model
     protected static function booted()
     {
         static::creating(function ($model) {
-            if (empty($model->ip)) {
-                $model->ip = request()->ip();
-            }
+            $model->ip = request()->ip();
         });
     }
 
